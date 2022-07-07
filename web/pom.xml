@@ -2,15 +2,15 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	
+
 	<parent>
 		<groupId>com.jeesite</groupId>
 		<artifactId>jeesite-parent</artifactId>
 		<version>4.4.1-SNAPSHOT</version>
 		<relativePath>../parent/pom.xml</relativePath>
 	</parent>
-	
-	<artifactId>jeesite-web</artifactId>
+
+	<artifactId>jeesite-test</artifactId>
 	<packaging>war</packaging>
 	
 	<name>JeeSite Web</name>
@@ -32,7 +32,13 @@
 	</properties>
 
 	<dependencies>
-		
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+
+
 		<!-- 核心模块 -->
 		<dependency>
 			<groupId>com.jeesite</groupId>
@@ -46,7 +52,14 @@
 			<artifactId>jeesite-module-swagger</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
-		
+
+<!--		<dependency>-->
+<!--			<groupId>com.jeesite</groupId>-->
+<!--			<artifactId>jeesite-module-test</artifactId>-->
+<!--			<version>${project.parent.version}</version>-->
+<!--		</dependency>-->
+
+
 		<!-- 文件管理共享（标准版）
 		<dependency>
 			<groupId>com.jeesite</groupId>
@@ -73,14 +86,8 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
 			<scope>provided</scope>
-		</dependency> -->
-
-		<dependency>
-			<groupId>com.jeesite</groupId>
-			<artifactId>jeesite-module-test</artifactId>
-			<version>${project.parent.version}</version>
-		</dependency>
-
+		</dependency>-->
+		
 	</dependencies>
 	
 	<build>
@@ -161,5 +168,11 @@
 			<url>http://maven.jeesite.net/repository/maven-public</url>
 		</pluginRepository>
 	</pluginRepositories>
+
+<!--	<modules>-->
+<!--		<module>../modules/test</module>-->
+<!--	</modules>-->
+
+
 	
 </project>
