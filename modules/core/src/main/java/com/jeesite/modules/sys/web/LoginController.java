@@ -13,6 +13,7 @@ import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.session.Session;
+import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.util.WebUtils;
 import org.springframework.stereotype.Controller;
@@ -207,7 +208,7 @@ public class LoginController extends BaseController{
 		if (StringUtils.isBlank(successUrl)){
 			successUrl = Global.getProperty("shiro.successUrl");
 		}
-		
+
 		// 登录操作如果是Ajax操作，直接返回登录信息字符串。
 		if (ServletUtils.isAjaxRequest(request)){
 			model.addAttribute("result", Global.TRUE);
