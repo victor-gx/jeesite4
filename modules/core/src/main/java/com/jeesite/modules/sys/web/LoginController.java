@@ -51,6 +51,7 @@ public class LoginController extends BaseController{
 	@RequestMapping(value = "login")
 	public String login(HttpServletRequest request, HttpServletResponse response, Model model) {
 		// 地址中如果包含JSESSIONID，则跳转一次，去掉JSESSIONID信息。
+		System.out.println(StringUtils.containsIgnoreCase(request.getRequestURI(), ";JSESSIONID="));
 		if (StringUtils.containsIgnoreCase(request.getRequestURI(), ";JSESSIONID=")){
 			String queryString = request.getQueryString();
 			queryString = queryString == null ? "" : "?" + queryString;
@@ -59,9 +60,10 @@ public class LoginController extends BaseController{
 		}
 
 		LoginInfo loginInfo = UserUtils.getLoginInfo();
-		
+		System.out.println("aaaaaaaaaa");
 		// 如果已经登录，则跳转到管理首页
 		if(loginInfo != null){
+			System.out.println("已登录");
 			String queryString = request.getQueryString();
 			queryString = queryString == null ? "" : "?" + queryString;
 			ServletUtils.redirectUrl(request, response, adminPath + "/index" + queryString);
@@ -72,10 +74,10 @@ public class LoginController extends BaseController{
 		if (WebUtils.isTrue(request, BaseAuthorizingRealm.IS_LOGIN_OPER)){
 			return loginFailure(request, response, model);
 		}
-
+		System.out.println("bbbbbbbbbb");
 		// 获取登录数据
 		model.addAllAttributes(FormFilter.getLoginData(request, response));
-		
+		System.out.println("cccccccccc");
 		// 如果是Ajax请求，返回Json字符串。
 		if (ServletUtils.isAjaxRequest((HttpServletRequest)request)){
 			model.addAttribute("message", text("sys.login.notLongIn"));
@@ -84,13 +86,16 @@ public class LoginController extends BaseController{
 		
 		// 返回指定用户类型的登录页视图
 		String userType = (String)model.asMap().get(ServletUtils.EXT_PARAMS_PREFIX + "userType");
+		System.out.println("dddddddddd" + userType);
 		if (StringUtils.isBlank(userType)){
 			userType = User.USER_TYPE_EMPLOYEE;
 		}
 		String view = UserUtils.getUserTypeValue(userType, "loginView");
+		System.out.println("eeeeeeeeee" + StringUtils.isNotBlank(view));
 		if(StringUtils.isNotBlank(view)){
 			return view;
 		}
+		System.out.println("ffffffffff" + view);
 		
 		return "modules/sys/sysLogin";
 	}
@@ -101,6 +106,7 @@ public class LoginController extends BaseController{
 	@RequestMapping(value = "loginFailure")
 	public String loginFailure(HttpServletRequest request, HttpServletResponse response, Model model) {
 		LoginInfo loginInfo = UserUtils.getLoginInfo();
+		System.out.println(loginInfo);
 		
 		// 如果已经登录，则跳转到管理首页
 //		if(loginInfo != null){ // 注释掉，已经登录的账号，正常返回登录失败信息，方便前端判断。
@@ -115,15 +121,19 @@ public class LoginController extends BaseController{
 		
 		// 如果是Ajax请求，返回Json字符串。
 		if (ServletUtils.isAjaxRequest(request)){
+			System.out.println("fail");
 			return ServletUtils.renderObject(response, model);
 		}
 		
 		// 返回指定用户类型的登录页视图
 		String userType = (String)model.asMap().get(ServletUtils.EXT_PARAMS_PREFIX + "userType");
+		System.out.println(userType);
 		if (StringUtils.isBlank(userType)){
+			System.out.println("0000");
 			userType = User.USER_TYPE_EMPLOYEE;
 		}
 		String view = UserUtils.getUserTypeValue(userType, "loginView");
+		System.out.println(view);
 		if(StringUtils.isNotBlank(view)){
 			return view;
 		}
@@ -136,7 +146,9 @@ public class LoginController extends BaseController{
 	 */
 	@RequestMapping(value = "index")
 	public String index(HttpServletRequest request, HttpServletResponse response, Model model) {
+		System.out.println("44444" + request + "+" + response + "+" + model);
 		// 地址中如果包含JSESSIONID，则跳转一次，去掉JSESSIONID信息。
+		System.out.println("ggggg登录成功" + StringUtils.containsIgnoreCase(request.getRequestURI(), ";JSESSIONID="));
 		if (StringUtils.containsIgnoreCase(request.getRequestURI(), ";JSESSIONID=")){
 			String queryString = request.getQueryString();
 			queryString = queryString == null ? "" : "?" + queryString;
@@ -147,6 +159,7 @@ public class LoginController extends BaseController{
 		// 验证下用户权限，以便调用doGetAuthorizationInfo方法，保存单点登录登出句柄
 		Subject subject = SecurityUtils.getSubject();
 		if (subject == null || !subject.isPermitted("user")){
+			System.out.println("hhhhh验证下用户权限" + subject);
 			if (subject != null){
 				subject.logout();
 			}
@@ -158,8 +171,10 @@ public class LoginController extends BaseController{
 
 		//获取登录用户信息
 		LoginInfo loginInfo = UserUtils.getLoginInfo();
+		System.out.println("11111用户信息" + loginInfo);
 		
 		// 未加载shiro模块时会为空，直接访问则提示操作权限不足。
+		System.out.println("22222shiro模块" + loginInfo);
 		if(loginInfo == null){
 			if (subject != null){
 				subject.logout();
@@ -172,6 +187,7 @@ public class LoginController extends BaseController{
 		
 		// 当前用户对象信息
 		User user = UserUtils.get(loginInfo.getId());
+		System.out.println("iiiii当前用户对象信息" + user);
 		if (user == null){
 			UserUtils.getSubject().logout();
 			String queryString = request.getQueryString();
@@ -186,6 +202,7 @@ public class LoginController extends BaseController{
 		
 		// 是否是登录操作
 		boolean isLogin = Global.TRUE.equals(session.getAttribute(BaseAuthorizingRealm.IS_LOGIN_OPER));
+		System.out.println("jjjjj是否是登录操作" + isLogin);
 		if (isLogin){
 			// 获取后接着清除，防止下次获取仍然认为是登录状态
 			session.removeAttribute(BaseAuthorizingRealm.IS_LOGIN_OPER);
@@ -202,6 +219,8 @@ public class LoginController extends BaseController{
 
 		// 获取登录成功后跳转的页面
 		String successUrl = request.getParameter("__url");
+		System.out.println("kkkkk登录成功后跳转的页面" + successUrl);
+
 		if (StringUtils.isBlank(successUrl)){
 			successUrl = (String)request.getAttribute("__url");
 		}
@@ -210,28 +229,35 @@ public class LoginController extends BaseController{
 		}
 
 		// 登录操作如果是Ajax操作，直接返回登录信息字符串。
+		//System.out.println(ServletUtils.isAjaxRequest(request));
 		if (ServletUtils.isAjaxRequest(request)){
 			model.addAttribute("result", Global.TRUE);
 			// 如果是登录，则返回登录成功信息，否则返回获取成功信息
+			System.out.println(isLogin);
 			if (isLogin){
 				model.addAttribute("message", text("sys.login.success"));
 			}else{
 				model.addAttribute("message", text("sys.login.getInfo"));
 			}
 			model.addAttribute("sessionid", (String)session.getId());
+			System.out.println((String)session.getId());
 			if (!StringUtils.contains(successUrl, "://")){
 				successUrl = request.getContextPath() + successUrl;
 			}
 			model.addAttribute("__url", successUrl); // 告诉浏览器登录后跳转的页面
+			System.out.println(successUrl);
+			//System.out.println("33333" + ServletUtils.renderObject(response, model));
+			System.out.println("login");
 			return ServletUtils.renderObject(response, model);
 		}
 		// 如果是登录操作，则跳转到登录成功页
 		else if (isLogin){
 			return REDIRECT + successUrl;
 		}
-		
+
 		// 是否允许刷新主页，如果已登录，再次访问主页，则退出原账号。
 		if (!Global.getConfigToBoolean("shiro.isAllowRefreshIndex", "true")){
+			System.out.println("是否允许刷新主页");
 			String logined = CookieUtils.getCookie(request, "LOGINED");
 			if (StringUtils.isBlank(logined) || "false".equals(logined)){
 				CookieUtils.setCookie(response, "LOGINED", "true");
@@ -243,9 +269,11 @@ public class LoginController extends BaseController{
 				return REDIRECT + adminPath + "/login" + queryString;
 			}
 		}
-		
+
 		// 初始密码策略和密码修改策略验证（0：关闭；1：提醒用户；2：强制修改初始或旧密码）
 		String passwordModifyUrl = PwdUtils.passwordModifyValid(user, model);
+
+		System.out.println("lllll策略验证" + passwordModifyUrl);
 		if (passwordModifyUrl != null){
 			try {
 				request.getRequestDispatcher(passwordModifyUrl).forward(request, response);
@@ -268,11 +296,15 @@ public class LoginController extends BaseController{
 		
 		// 返回指定用户类型的首页视图
 		String userType = user.getUserType();
+		System.out.println("mmmmm返回指定用户类型" + userType);
 		if (User.USER_TYPE_NONE.equals(userType)){
 			userType = User.USER_TYPE_EMPLOYEE;
+			System.out.println("nnnnn返回指定用户类型" + userType);
 		}
 		String view = UserUtils.getUserTypeValue(userType, "indexView");
+		System.out.println("ooooo返回指定用户类型" + view);
 		if(StringUtils.isNotBlank(view)){
+			System.out.println("ppppp返回指定用户类型" + view);
 			return view;
 		}
 		
