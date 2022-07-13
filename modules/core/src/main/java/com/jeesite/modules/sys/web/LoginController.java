@@ -9,6 +9,7 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeesite.modules.sys.entity.Employee;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
@@ -158,6 +159,7 @@ public class LoginController extends BaseController{
 
 		// 验证下用户权限，以便调用doGetAuthorizationInfo方法，保存单点登录登出句柄
 		Subject subject = SecurityUtils.getSubject();
+		System.out.println("hhhhh验证下用户权限" + subject);
 		if (subject == null || !subject.isPermitted("user")){
 			System.out.println("hhhhh验证下用户权限" + subject);
 			if (subject != null){
@@ -229,7 +231,7 @@ public class LoginController extends BaseController{
 		}
 
 		// 登录操作如果是Ajax操作，直接返回登录信息字符串。
-		//System.out.println(ServletUtils.isAjaxRequest(request));
+		System.out.println("55555Ajax操作" + ServletUtils.isAjaxRequest(request));
 		if (ServletUtils.isAjaxRequest(request)){
 			model.addAttribute("result", Global.TRUE);
 			// 如果是登录，则返回登录成功信息，否则返回获取成功信息
@@ -252,6 +254,7 @@ public class LoginController extends BaseController{
 		}
 		// 如果是登录操作，则跳转到登录成功页
 		else if (isLogin){
+			System.out.println("login1");
 			return REDIRECT + successUrl;
 		}
 
@@ -269,9 +272,11 @@ public class LoginController extends BaseController{
 				return REDIRECT + adminPath + "/login" + queryString;
 			}
 		}
+		String queryString = request.getQueryString();
 
 		// 初始密码策略和密码修改策略验证（0：关闭；1：提醒用户；2：强制修改初始或旧密码）
 		String passwordModifyUrl = PwdUtils.passwordModifyValid(user, model);
+		System.out.println(user + "+" + model);
 
 		System.out.println("lllll策略验证" + passwordModifyUrl);
 		if (passwordModifyUrl != null){
