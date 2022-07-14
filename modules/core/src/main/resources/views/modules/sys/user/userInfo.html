@@ -333,7 +333,8 @@ $("#inputFormPwd").validate({
 					if ('${parameter.url}'!=''){
 						location = '${ctxPath}${parameter.url}';
 					}else{
-						location = '${ctx}/sys/user/info?op=mpd';
+						//location = '${ctx}/sys/user/info?op=mpd';
+						window.setTimeout("backLogin()",1000);
 					}
 				});
 			}else{
@@ -342,6 +343,9 @@ $("#inputFormPwd").validate({
 		}, "json");
     }
 });
+function backLogin(){
+	location = '${ctx}/logout';
+}
 // 密保问题
 $("#inputFormPqa").validate({
 	submitHandler: function(form){
