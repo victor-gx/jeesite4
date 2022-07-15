@@ -156,7 +156,7 @@ user:
       member: {
         beanName: "memberService",
         loginView: "modules/sys/sysLogin",
-        indexView: "modules/sys/sysIndex"
+        indexView: "modules/sys/sysIndexMember"
       },
       btype: {
         beanName: "btypeInfoService",
