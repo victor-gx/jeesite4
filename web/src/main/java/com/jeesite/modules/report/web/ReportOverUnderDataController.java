@@ -3,6 +3,7 @@ package com.jeesite.modules.report.web;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.jeesite.modules.sys.entity.Post;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -79,7 +80,31 @@ public class ReportOverUnderDataController extends BaseController {
 	@ResponseBody
 	public String save(@Validated ReportOverUnderData reportOverUnderData) {
 		reportOverUnderDataService.save(reportOverUnderData);
-		return renderResult(Global.TRUE, text("保存report_over_under_data成功！"));
+		return renderResult(Global.TRUE, text("保存报表成功！"));
+	}
+
+	/**
+	 * 停用报表
+	 */
+	@RequiresPermissions("report:reportOverUnderData:edit")
+	@RequestMapping(value = "disable")
+	@ResponseBody
+	public String disable(ReportOverUnderData reportOverUnderData, HttpServletRequest request, HttpServletResponse response, Model model) {
+		reportOverUnderData.setStatus(ReportOverUnderData.STATUS_DISABLE);
+		reportOverUnderDataService.updateStatus(reportOverUnderData);
+		return renderResult(Global.TRUE, text("停用报表''{0}''成功", reportOverUnderData.getReportNumber()));
+	}
+
+	/**
+	 * 启用报表
+	 */
+	@RequiresPermissions("report:reportOverUnderData:edit")
+	@RequestMapping(value = "enable")
+	@ResponseBody
+	public String enable(ReportOverUnderData reportOverUnderData, HttpServletRequest request, HttpServletResponse response, Model model) {
+		reportOverUnderData.setStatus(ReportOverUnderData.STATUS_NORMAL);
+		reportOverUnderDataService.updateStatus(reportOverUnderData);
+		return renderResult(Global.TRUE, text("启用报表''{0}''成功", reportOverUnderData.getReportNumber()));
 	}
 	
 	/**
@@ -90,7 +115,7 @@ public class ReportOverUnderDataController extends BaseController {
 	@ResponseBody
 	public String delete(ReportOverUnderData reportOverUnderData) {
 		reportOverUnderDataService.delete(reportOverUnderData);
-		return renderResult(Global.TRUE, text("删除report_over_under_data成功！"));
+		return renderResult(Global.TRUE, text("删除报表成功！"));
 	}
 	
 }
