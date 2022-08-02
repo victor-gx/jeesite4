@@ -19,7 +19,6 @@
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> ${text('日期')}：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<!--<#form:input path="statMonth" maxlength="10" class="form-control"/>-->
 								<#form:input path="statMonth" readonly="true" maxlength="10" class="form-control laydate width-date" data-format="yyyy-MM-dd"/>
 							</div>
 						</div>
@@ -29,8 +28,7 @@
 							<label class="control-label col-sm-4" title="">
 								<span class="required hide">*</span> ${text('报表')}：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-8">
-								<!--<#form:input path="reportNumber" maxlength="10" class="form-control"/>-->
-								<#form:select path="reportNumber" dictType="sys_search_status" blankOption="true" class="form-control "/>
+								<#form:select path="reportNumber" dictType="sys_menu_type" blankOption="true" class="form-control "/>
 							</div>
 						</div>
 					</div>
@@ -41,8 +39,7 @@
 							<label class="control-label col-sm-2" title="">
 								<span class="required hide">*</span> ${text('备注说明')}：<i class="fa icon-question hide"></i></label>
 							<div class="col-sm-10">
-								<!--<#form:textarea path="remarks" rows="4" class="form-control"/>-->
-								<#form:ueditor path="remarks" maxlength="10000" height="200" class="required"
+							<#form:ueditor path="remarks" maxlength="10000" height="200" class="required"
 								simpleToolbars="true" readonly="false" outline="false"/>
 							</div>
 						</div>
