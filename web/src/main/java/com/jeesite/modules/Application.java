@@ -6,6 +6,8 @@ package com.jeesite.modules;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
+import org.springframework.boot.autoconfigure.jooq.JooqAutoConfiguration;
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
 
@@ -14,7 +16,7 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
  * @author ThinkGem
  * @version 2018-10-13
  */
-@SpringBootApplication
+@SpringBootApplication(exclude = { DataSourceAutoConfiguration.class, JooqAutoConfiguration.class })
 public class Application extends SpringBootServletInitializer {
 	
 	public static void main(String[] args) {

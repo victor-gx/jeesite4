@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+		 xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
@@ -12,23 +12,23 @@
 
 	<artifactId>jeesite-test</artifactId>
 	<packaging>war</packaging>
-	
+
 	<name>JeeSite Web</name>
 	<url>http://jeesite.com</url>
 	<inceptionYear>2013-Now</inceptionYear>
-	
+
 	<properties>
-		
+
 		<finalName>web</finalName><!-- war or jar 包的名称 -->
 		<start-class>com.jeesite.modules.Application</start-class>
-		
+
 		<!-- environment setting -->
 		<eclipse-plugin-download-sources>false</eclipse-plugin-download-sources>
 		<eclipse-plugin-download-javadocs>false</eclipse-plugin-download-javadocs>
-		
+
 		<!-- docker setting -->
-        <docker.run.port>8980:8980</docker.run.port>
-		
+		<docker.run.port>8980:8980</docker.run.port>
+
 	</properties>
 
 	<dependencies>
@@ -38,6 +38,90 @@
 			<artifactId>spring-boot-starter-web</artifactId>
 		</dependency>
 
+		<dependency>
+			<groupId>fine-accumulator</groupId>
+			<artifactId>fine-accumulator</artifactId>
+			<scope>system</scope>
+			<systemPath>${pom.basedir}/src/main/webapp/WEB-INF/lib/fine-accumulator-10.0.jar</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>fine-activator</groupId>
+			<artifactId>fine-activator</artifactId>
+			<scope>system</scope>
+			<systemPath>${pom.basedir}/src/main/webapp/WEB-INF/lib/fine-activator-10.0.jar</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>fine-core</groupId>
+			<artifactId>fine-core</artifactId>
+			<scope>system</scope>
+			<systemPath>${pom.basedir}/src/main/webapp/WEB-INF/lib/fine-core-10.0.jar</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>fine-datasource</groupId>
+			<artifactId>fine-datasource</artifactId>
+			<scope>system</scope>
+			<systemPath>${pom.basedir}/src/main/webapp/WEB-INF/lib/fine-datasource-10.0.jar</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>fine-decision</groupId>
+			<artifactId>fine-decision</artifactId>
+			<scope>system</scope>
+			<systemPath>${pom.basedir}/src/main/webapp/WEB-INF/lib/fine-decision-10.0.jar</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>fine-decision-report</groupId>
+			<artifactId>fine-decision-report</artifactId>
+			<scope>system</scope>
+			<systemPath>${pom.basedir}/src/main/webapp/WEB-INF/lib/fine-decision-report-10.0.jar</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>fine-report-engine</groupId>
+			<artifactId>fine-report-engine</artifactId>
+			<scope>system</scope>
+			<systemPath>${pom.basedir}/src/main/webapp/WEB-INF/lib/fine-report-engine-10.0.jar</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>fine-schedule</groupId>
+			<artifactId>fine-schedule</artifactId>
+			<scope>system</scope>
+			<systemPath>${pom.basedir}/src/main/webapp/WEB-INF/lib/fine-schedule-10.0.jar</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>fine-schedule-report</groupId>
+			<artifactId>fine-schedule-report</artifactId>
+			<scope>system</scope>
+			<systemPath>${pom.basedir}/src/main/webapp/WEB-INF/lib/fine-schedule-report-10.0.jar</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>fine-swift-log-adaptor</groupId>
+			<artifactId>fine-swift-log-adaptor</artifactId>
+			<scope>system</scope>
+			<systemPath>${pom.basedir}/src/main/webapp/WEB-INF/lib/fine-swift-log-adaptor-10.0.jar</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>fine-third</groupId>
+			<artifactId>fine-third</artifactId>
+			<scope>system</scope>
+			<systemPath>${pom.basedir}/src/main/webapp/WEB-INF/lib/fine-third-10.0.jar</systemPath>
+		</dependency>
+
+		<dependency>
+			<groupId>fine-webui</groupId>
+			<artifactId>fine-webui</artifactId>
+			<scope>system</scope>
+			<systemPath>${pom.basedir}/src/main/webapp/WEB-INF/lib/fine-webui-10.0.jar</systemPath>
+		</dependency>
+
 
 		<!-- 核心模块 -->
 		<dependency>
@@ -45,7 +129,7 @@
 			<artifactId>jeesite-module-core</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency>
-		
+
 		<!-- 在线文档接口 -->
 		<dependency>
 			<groupId>com.jeesite</groupId>
@@ -53,11 +137,11 @@
 			<version>${project.parent.version}</version>
 		</dependency>
 
-<!--		<dependency>-->
-<!--			<groupId>com.jeesite</groupId>-->
-<!--			<artifactId>jeesite-module-test</artifactId>-->
-<!--			<version>${project.parent.version}</version>-->
-<!--		</dependency>-->
+		<!--		<dependency>-->
+		<!--			<groupId>com.jeesite</groupId>-->
+		<!--			<artifactId>jeesite-module-test</artifactId>-->
+		<!--			<version>${project.parent.version}</version>-->
+		<!--		</dependency>-->
 
 
 		<!-- 文件管理共享（标准版）
@@ -66,35 +150,35 @@
 			<artifactId>jeesite-module-filemanager</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency> -->
-		
+
 		<!-- 文件在线预览（标准版）
 		<dependency>
 			<groupId>com.jeesite</groupId>
 			<artifactId>jeesite-module-filepreview</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency> -->
-		
+
 		<!-- 内容管理模块
 		<dependency>
 			<groupId>com.jeesite</groupId>
 			<artifactId>jeesite-module-cms</artifactId>
 			<version>${project.parent.version}</version>
 		</dependency> -->
-		
+
 		<!-- Spring Boot Tomcat
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-tomcat</artifactId>
 			<scope>provided</scope>
 		</dependency>-->
-		
+
 	</dependencies>
-	
+
 	<build>
 		<finalName>${finalName}</finalName>
 		<outputDirectory>${project.basedir}/src/main/webapp/WEB-INF/classes/</outputDirectory>
 		<plugins>
-			
+
 			<!-- Spring Boot -->
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
@@ -112,7 +196,7 @@
 					<warName>${finalName}</warName>
 				</configuration>
 			</plugin>
-			
+
 			<!-- Eclipse 插件 -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -125,25 +209,25 @@
 					<jeeversion>6.0</jeeversion>
 				</configuration>
 			</plugin>
-			
+
 		</plugins>
 	</build>
-	
-	<developers>  
+
+	<developers>
 		<developer>
 			<id>thinkgem</id>
 			<name>WangZhen</name>
 			<email>thinkgem at 163.com</email>
 			<roles><role>Project lead</role></roles>
-			<timezone>+8</timezone>  
+			<timezone>+8</timezone>
 		</developer>
 	</developers>
-	
+
 	<organization>
 		<name>JeeSite</name>
 		<url>http://jeesite.com</url>
 	</organization>
-	
+
 	<repositories>
 		<repository>
 			<id>aliyun-repos</id>
@@ -169,10 +253,10 @@
 		</pluginRepository>
 	</pluginRepositories>
 
-<!--	<modules>-->
-<!--		<module>../modules/test</module>-->
-<!--	</modules>-->
+	<!--	<modules>-->
+	<!--		<module>../modules/test</module>-->
+	<!--	</modules>-->
 
 
-	
+
 </project>
